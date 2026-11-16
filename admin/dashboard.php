@@ -3,7 +3,7 @@
 // TechnicalBabaOffice - Admin Dashboard
 // ============================================================
 $pageTitle = 'Dashboard';
-require_once '../layout/header.php';
+require_once __DIR__ . '/layout/header.php';
 
 $db = getDB();
 
@@ -215,4 +215,4 @@ $recentVideos = $db->query(
 
 </div><!-- .row -->
 
-<?php require_once '../layout/footer.php'; ?>
+<?php require_once __DIR__ . '/layout/footer.php'; ?>

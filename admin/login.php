@@ -2,8 +2,8 @@
 // ============================================================
 // TechnicalBabaOffice - Admin Login Page
 // ============================================================
-require_once '../config/db.php';
-require_once '../includes/functions.php';
+require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../includes/functions.php';
 
 session_name(SESSION_NAME);
 session_start();

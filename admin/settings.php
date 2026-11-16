@@ -3,7 +3,7 @@
 // TechnicalBabaOffice - Admin: Site Settings
 // ============================================================
 $pageTitle = 'Site Settings';
-require_once '../layout/header.php';
+require_once __DIR__ . '/layout/header.php';
 
 // --- Handle Save Settings ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
@@ -252,4 +252,4 @@ $s = getAllSettings();
   </div>
 </div>
 
-<?php require_once '../layout/footer.php'; ?>
+<?php require_once __DIR__ . '/layout/footer.php'; ?>

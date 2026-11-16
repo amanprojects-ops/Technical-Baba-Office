@@ -3,7 +3,7 @@
 // TechnicalBabaOffice - Admin: Manage Videos (CRUD)
 // ============================================================
 $pageTitle = 'Videos';
-require_once '../layout/header.php';
+require_once __DIR__ . '/layout/header.php';
 
 $db = getDB();
 
@@ -246,4 +246,4 @@ document.addEventListener('DOMContentLoaded', function() {
 <?php endif; ?>
 </script>
 
-<?php require_once '../layout/footer.php'; ?>
+<?php require_once __DIR__ . '/layout/footer.php'; ?>

@@ -6,8 +6,10 @@ require_once __DIR__ . '/../../config/db.php';
 require_once __DIR__ . '/../../includes/functions.php';
 require_once __DIR__ . '/../auth.php';
 
-session_name(SESSION_NAME);
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_name(SESSION_NAME);
+    session_start();
+}
 
 requireAdminAuth();
 

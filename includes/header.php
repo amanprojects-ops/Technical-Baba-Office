@@ -4,8 +4,10 @@
 // ============================================================
 require_once __DIR__ . '/../includes/functions.php';
 
-session_name(SESSION_NAME);
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_name(SESSION_NAME);
+    session_start();
+}
 
 $settings = getAllSettings();
 $siteName = $settings['site_name'] ?? 'Technical Baba';

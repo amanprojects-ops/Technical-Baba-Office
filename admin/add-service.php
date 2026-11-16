@@ -3,7 +3,7 @@
 // TechnicalBabaOffice - Admin: Add Service
 // ============================================================
 $pageTitle = 'Add New Service';
-require_once 'layout/header.php';
+require_once __DIR__ . '/layout/header.php';
 
 $db = getDB();
 
@@ -94,4 +94,4 @@ $icons = ['video','youtube','star','book','code','mobile-alt','lightbulb','lapto
   </div>
 </div>
 
-<?php require_once 'layout/footer.php'; ?>
+<?php require_once __DIR__ . '/layout/footer.php'; ?>

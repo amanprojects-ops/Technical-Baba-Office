@@ -3,7 +3,7 @@
 // TechnicalBabaOffice - Admin: Manage Contact Messages
 // ============================================================
 $pageTitle = 'Messages / Contacts';
-require_once '../layout/header.php';
+require_once __DIR__ . '/layout/header.php';
 
 $db = getDB();
 
@@ -222,4 +222,4 @@ $unread = (int)$db->query("SELECT COUNT(*) FROM contacts WHERE is_read = 0")->fe
 
 </div>
 
-<?php require_once '../layout/footer.php'; ?>
+<?php require_once __DIR__ . '/layout/footer.php'; ?>

@@ -136,26 +136,4 @@ TechnicalBabaOffice/
     └── footer.php                # Public footer, social links & script imports
 ```
 
----
-
-## 📜 Git Commit History
-1. `init: project structure + .gitignore`
-2. `feat: database schema (admin_users, site_settings, services, videos, contacts)`
-3. `feat: db config (PDO) + helper functions`
-4. `feat: base layout - header.php + footer.php with Bootstrap 5`
-5. `feat: homepage (index.php) + style.css + main.js`
-6. `feat: services/videos page with pagination + category filter`
-7. `feat: contact page + AJAX form handler with CSRF + Google Maps embed`
-8. `feat: AdminLTE 3 admin layout (header, footer, sidebar, auth guard, admin.css, admin.js)`
-9. `feat: admin dashboard with stats, quick actions + recent data tables`
-10. `feat: admin CRUD for services + videos with pagination`
-11. `feat: admin contacts/messages manager with read, reply, delete + filter`
-12. `feat: admin site settings panel (general, hero, stats, social, contact)`
-13. `feat: admin login/logout with CSRF protection + password toggle + session auth`
-14. `feat: .htaccess (security, caching, gzip) + 404 custom page`
-15. `feat: admin quick actions (add-video, add-service) + ajax status handler + csrf meta`
-16. `feat: one-click web installer (install.php) + CLI database migrator`
-17. `docs: comprehensive README documentation with setup, credentials, features & architecture`
-
----
 Made with ❤️ for **Technical Baba Office**

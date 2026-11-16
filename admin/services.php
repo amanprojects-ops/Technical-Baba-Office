@@ -155,7 +155,7 @@ $icons = ['video','youtube','star','book','code','mobile-alt','lightbulb','lapto
                       <span style="width:32px;height:32px;background:<?= htmlspecialchars($svc['color']) ?>20;
                                    border-radius:8px;display:inline-flex;align-items:center;justify-content:center;
                                    color:<?= htmlspecialchars($svc['color']) ?>">
-                        <i class="fas fa-<?= htmlspecialchars($svc['icon']) ?>"></i>
+                        <?= renderIcon($svc['icon']) ?>
                       </span>
                     </td>
                     <td>

@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
 ) ENGINE=InnoDB;
 
 -- Default admin: password = admin@123 (bcrypt)
-INSERT INTO `admin_users` (`username`, `password`, `email`, `full_name`)
+INSERT IGNORE INTO `admin_users` (`username`, `password`, `email`, `full_name`)
 VALUES (
   'admin',
   '$2y$12$QQ1aFNJrDqnqHhTd3ZuqHOGsV6ZqSqOT0FnKC.wfJxoZpD7OlJ8xi',
@@ -58,7 +58,8 @@ INSERT INTO `site_settings` (`setting_key`, `setting_value`) VALUES
   ('maps_embed_url',   'https://maps.google.com/maps?q=TechnicalBabaOffice&output=embed'),
   ('subscriber_count', '1,00,000+'),
   ('video_count',      '500+'),
-  ('views_count',      '1 Crore+');
+  ('views_count',      '1 Crore+')
+ON DUPLICATE KEY UPDATE `setting_value` = VALUES(`setting_value`);
 
 -- ============================================================
 -- Table: services (Services / Video categories)
@@ -78,12 +79,12 @@ CREATE TABLE IF NOT EXISTS `services` (
 ) ENGINE=InnoDB;
 
 INSERT INTO `services` (`title`, `title_hi`, `description`, `description_hi`, `icon`, `color`, `sort_order`) VALUES
-  ('YouTube Tutorials', 'यूट्यूब ट्यूटोरियल्स', 'Step-by-step technology tutorials for beginners and advanced users.', 'शुरुआती और advanced users के लिए step-by-step technology tutorials.', 'fa-youtube', '#ff0000', 1),
-  ('Tech Reviews', 'टेक रिव्यू', 'Honest reviews of latest smartphones, laptops and gadgets.', 'नए smartphones, laptops और gadgets के honest reviews.', 'fa-star', '#ff6600', 2),
-  ('How-To Guides', 'कैसे करें गाइड', 'Practical how-to guides for everyday tech problems.', 'रोजमर्रा की tech problems के लिए practical how-to guides.', 'fa-book', '#1a73e8', 3),
-  ('Coding Tutorials', 'कोडिंग ट्यूटोरियल्स', 'Learn programming and web development from scratch.', 'Programming और web development scratch से सीखें.', 'fa-code', '#28a745', 4),
-  ('App Reviews', 'ऐप रिव्यू', 'Reviews of trending mobile and web applications.', 'Trending mobile और web applications के reviews.', 'fa-mobile-alt', '#6f42c1', 5),
-  ('Tips & Tricks', 'टिप्स और ट्रिक्स', 'Hidden features and shortcuts to boost your productivity.', 'Productivity बढ़ाने के hidden features और shortcuts.', 'fa-lightbulb', '#fd7e14', 6);
+  ('YouTube Tutorials', 'यूट्यूब ट्यूटोरियल्स', 'Step-by-step technology tutorials for beginners and advanced users.', 'शुरुआती और advanced users के लिए step-by-step technology tutorials.', 'youtube', '#ff0000', 1),
+  ('Tech Reviews', 'टेक रिव्यू', 'Honest reviews of latest smartphones, laptops and gadgets.', 'नए smartphones, laptops और gadgets के honest reviews.', 'star', '#ff6600', 2),
+  ('How-To Guides', 'कैसे करें गाइड', 'Practical how-to guides for everyday tech problems.', 'रोजमर्रा की tech problems के लिए practical how-to guides.', 'book-open', '#1a73e8', 3),
+  ('Coding Tutorials', 'कोडिंग ट्यूटोरियल्स', 'Learn programming and web development from scratch.', 'Programming और web development scratch से सीखें.', 'code', '#28a745', 4),
+  ('App Reviews', 'ऐप रिव्यू', 'Reviews of trending mobile and web applications.', 'Trending mobile और web applications के reviews.', 'mobile-screen-button', '#6f42c1', 5),
+  ('Tips & Tricks', 'टिप्स और ट्रिक्स', 'Hidden features and shortcuts to boost your productivity.', 'Productivity बढ़ाने के hidden features और shortcuts.', 'lightbulb', '#fd7e14', 6);
 
 -- ============================================================
 -- Table: videos (Video listings)

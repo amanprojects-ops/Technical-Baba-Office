@@ -181,3 +181,41 @@ function getFlash(): ?array {
     unset($_SESSION['flash']);
     return $flash;
 }
+
+/**
+ * Get proper FontAwesome class name for any icon string
+ * Handles 'youtube', 'fa-youtube', 'fa-brands fa-youtube', etc.
+ */
+function getIconClass(string $icon): string {
+    $icon = trim($icon);
+    if (empty($icon)) return 'fa-solid fa-layer-group';
+
+    // Strip leading fa-, fas, fab, far, fa-solid, etc.
+    $clean = preg_replace('/^(fa[sbrl]?\s+)?(fa-)?/', '', $icon);
+    $clean = trim($clean);
+
+    // Map common aliases / FontAwesome 6 updates
+    $aliases = [
+        'mobile-alt' => 'mobile-screen-button',
+        'tools'      => 'screwdriver-wrench',
+    ];
+    if (isset($aliases[$clean])) {
+        $clean = $aliases[$clean];
+    }
+
+    $brands = ['youtube', 'facebook', 'facebook-f', 'instagram', 'twitter', 'x-twitter', 'github', 'linkedin', 'whatsapp', 'telegram', 'google', 'apple', 'android', 'windows', 'tiktok', 'discord'];
+    $prefix = in_array(strtolower($clean), $brands) ? 'fa-brands' : 'fa-solid';
+
+    return $prefix . ' fa-' . $clean;
+}
+
+/**
+ * Render complete <i> tag for an icon with optional extra classes
+ */
+function renderIcon(string $icon, string $extraClass = ''): string {
+    $cls = getIconClass($icon);
+    if (!empty($extraClass)) {
+        $cls .= ' ' . trim($extraClass);
+    }
+    return '<i class="' . htmlspecialchars($cls) . '"></i>';
+}

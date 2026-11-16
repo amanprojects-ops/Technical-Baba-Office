@@ -118,26 +118,47 @@ $activeServices = getActiveServices();
 <!-- ==================== SERVICES SECTION ==================== -->
 <section class="tb-section tb-services-home py-5" id="services">
   <div class="container">
-    <div class="tb-section-header text-center mb-5">
-      <span class="tb-section-badge">Hamare Content</span>
-      <h2 class="tb-section-title">Kya Seekhoge Aaj? <span class="tb-gradient-text">📚</span></h2>
-      <p class="tb-section-subtitle">Technology ke sabhi topics — simple Hindi mein, free mein!</p>
+    <div class="tb-section-header text-center mb-4">
+      <span class="tb-section-badge"><i class="fa-solid fa-layer-group me-2"></i>Hamare Content & Topics</span>
+      <h2 class="tb-section-title"><i class="fa-solid fa-laptop-code text-primary me-2"></i>Kya Seekhoge Aaj? <span class="tb-gradient-text">📚</span></h2>
+      <p class="tb-section-subtitle"><i class="fa-solid fa-circle-check text-success me-1"></i> Technology ke sabhi topics — simple Hindi mein, bilkul free!</p>
+
+      <!-- Content Highlight Feature Pills with Icons -->
+      <div class="tb-feature-pills">
+        <span class="tb-feature-pill"><i class="fa-solid fa-bolt text-warning"></i> 100% Practical</span>
+        <span class="tb-feature-pill"><i class="fa-solid fa-language text-info"></i> Hindi + English</span>
+        <span class="tb-feature-pill"><i class="fa-solid fa-circle-play text-danger"></i> HD Video Tutorials</span>
+        <span class="tb-feature-pill"><i class="fa-solid fa-certificate text-success"></i> Beginner to Pro</span>
+      </div>
     </div>
-    <div class="row g-4">
+
+    <div class="row g-4 mt-2">
       <?php foreach ($activeServices as $service): ?>
         <div class="col-lg-4 col-md-6">
           <a href="services.php?cat=<?= $service['id'] ?>" class="text-decoration-none">
             <div class="tb-service-card" style="--service-color: <?= htmlspecialchars($service['color']) ?>">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="tb-card-tag"><i class="fa-solid fa-play-circle me-1"></i> Content Series</span>
+                <span class="tb-card-badge"><i class="fa-solid fa-gift me-1"></i> Free</span>
+              </div>
+
               <div class="tb-service-icon">
-                <i class="fa-solid fa-<?= htmlspecialchars($service['icon']) ?>"></i>
+                <?= renderIcon($service['icon']) ?>
               </div>
               <h3 class="tb-service-title"><?= htmlspecialchars($service['title']) ?></h3>
               <?php if (!empty($service['title_hi'])): ?>
                 <div class="tb-service-title-hi"><?= htmlspecialchars($service['title_hi']) ?></div>
               <?php endif; ?>
               <p class="tb-service-desc"><?= htmlspecialchars($service['description'] ?? '') ?></p>
+
+              <!-- Features checklist with icons -->
+              <ul class="tb-service-features list-unstyled">
+                <li><i class="fa-solid fa-check text-success me-2"></i> Step-by-Step Practical Guides</li>
+                <li><i class="fa-solid fa-video me-2" style="color:var(--service-color)"></i> Real-world Projects & Demos</li>
+              </ul>
+
               <div class="tb-service-link">
-                Videos Dekho <i class="fa-solid fa-arrow-right ms-1"></i>
+                <span>Explore Videos</span> <i class="fa-solid fa-arrow-right ms-1"></i>
               </div>
             </div>
           </a>
@@ -146,7 +167,7 @@ $activeServices = getActiveServices();
     </div>
     <div class="text-center mt-5">
       <a href="services.php" class="btn tb-btn-primary btn-lg">
-        Saare Videos Dekho <i class="fa-solid fa-arrow-right ms-2"></i>
+        <i class="fa-solid fa-film me-2"></i> Saare Videos & Topics Dekho <i class="fa-solid fa-arrow-right ms-2"></i>
       </a>
     </div>
   </div>

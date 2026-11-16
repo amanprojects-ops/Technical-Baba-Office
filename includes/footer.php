@@ -62,7 +62,7 @@
           <?php foreach (array_slice($footerServices, 0, 5) as $svc): ?>
             <li>
               <a href="<?= SITE_URL ?>/services.php?cat=<?= $svc['id'] ?>">
-                <i class="fa-solid fa-<?= htmlspecialchars($svc['icon']) ?> me-1"></i>
+                <?= renderIcon($svc['icon'], 'me-1') ?>
                 <?= htmlspecialchars($svc['title']) ?>
               </a>
             </li>

@@ -41,10 +41,10 @@ function pageUrl(int $p, int $cat = 0): string {
     </div>
     <h1>
       <?php if ($activeService): ?>
-        <i class="fa-solid fa-<?= htmlspecialchars($activeService['icon']) ?> me-2" style="color:<?= htmlspecialchars($activeService['color']) ?>"></i>
+        <span style="color:<?= htmlspecialchars($activeService['color']) ?>" class="me-2"><?= renderIcon($activeService['icon']) ?></span>
         <?= htmlspecialchars($activeService['title']) ?>
       <?php else: ?>
-        🎬 Videos & Services
+        <i class="fa-solid fa-film text-warning me-2"></i> Videos & Content Library
       <?php endif; ?>
     </h1>
     <p class="mt-2">
@@ -65,13 +65,12 @@ function pageUrl(int $p, int $cat = 0): string {
     <div class="mb-4">
       <div class="tb-filter-tabs">
         <a href="services.php" class="tb-filter-tab <?= $catId === 0 ? 'active' : '' ?>">
-          <i class="fa-solid fa-th me-1"></i> Sab Kuch
+          <i class="fa-solid fa-border-all me-1"></i> Sab Kuch
         </a>
         <?php foreach ($services as $svc): ?>
           <a href="services.php?cat=<?= $svc['id'] ?>"
              class="tb-filter-tab <?= $catId === (int)$svc['id'] ? 'active' : '' ?>">
-            <i class="fa-solid fa-<?= htmlspecialchars($svc['icon']) ?> me-1"
-               style="color:<?= htmlspecialchars($svc['color']) ?>"></i>
+            <span style="color:<?= htmlspecialchars($svc['color']) ?>" class="me-1"><?= renderIcon($svc['icon']) ?></span>
             <?= htmlspecialchars($svc['title']) ?>
           </a>
         <?php endforeach; ?>
@@ -186,7 +185,7 @@ function pageUrl(int $p, int $cat = 0): string {
               <div style="width:48px;height:48px;border-radius:12px;background:<?= htmlspecialchars($svc['color']) ?>20;
                           display:flex;align-items:center;justify-content:center;flex-shrink:0;
                           font-size:1.3rem;color:<?= htmlspecialchars($svc['color']) ?>">
-                <i class="fa-solid fa-<?= htmlspecialchars($svc['icon']) ?>"></i>
+                <?= renderIcon($svc['icon']) ?>
               </div>
               <div>
                 <div style="font-weight:700;color:#0d1b2a;font-size:0.95rem"><?= htmlspecialchars($svc['title']) ?></div>

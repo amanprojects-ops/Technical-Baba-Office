@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
 INSERT IGNORE INTO `admin_users` (`username`, `password`, `email`, `full_name`)
 VALUES (
   'admin',
-  '$2y$12$QQ1aFNJrDqnqHhTd3ZuqHOGsV6ZqSqOT0FnKC.wfJxoZpD7OlJ8xi',
+  '$2y$10$g7XUd34cn77TFgc76VmRpeIL9FvPP5SxJ6z.rKgqMipy2w2gjeOEK',
   'admin@technicalbaba.com',
   'Technical Baba Admin'
 );

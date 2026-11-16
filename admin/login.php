@@ -91,9 +91,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="mb-3">
-      <label class="tb-form-label" for="password">
-        <i class="fa-solid fa-lock me-1"></i> Password
-      </label>
+      <div class="d-flex justify-content-between align-items-center mb-1">
+        <label class="tb-form-label mb-0" for="password">
+          <i class="fa-solid fa-lock me-1"></i> Password
+        </label>
+        <a href="reset-password.php" style="color:var(--tb-primary);font-size:0.8rem;text-decoration:none">
+          <i class="fa-solid fa-key me-1"></i> Reset Password?
+        </a>
+      </div>
       <div style="position:relative">
         <input type="password" id="password" name="password" class="tb-form-control" required
                placeholder="••••••••" autocomplete="current-password">
@@ -108,7 +113,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <i class="fa-solid fa-right-to-bracket me-2"></i> Login Karo
     </button>
 
-    <div class="text-center mt-4">
+    <div class="p-3 mt-3 rounded text-center" style="background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.1);font-size:0.8rem;color:rgba(255,255,255,0.6)">
+      <i class="fa-solid fa-circle-info text-warning me-1"></i> Default Login: <code>admin</code> / <code>admin@123</code>
+    </div>
+
+    <div class="text-center mt-3">
       <a href="<?= SITE_URL ?>/" style="color:rgba(255,255,255,0.3);font-size:0.8rem;text-decoration:none">
         <i class="fa-solid fa-arrow-left me-1"></i> Website par wapas jao
       </a>
@@ -117,17 +126,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <script>
-function togglePwd() {
-  const inp = document.getElementById('password');
-  const icon = document.getElementById('eyeIcon');
-  if (inp.type === 'password') {
-    inp.type = 'text';
-    icon.className = 'fa-solid fa-eye-slash';
-  } else {
-    inp.type = 'password';
-    icon.className = 'fa-solid fa-eye';
-  }
-}
+    function togglePwd() {
+      const inp = document.getElementById('password');
+      const icon = document.getElementById('eyeIcon');
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        icon.className = 'fa-solid fa-eye-slash';
+      } else {
+        inp.type = 'password';
+        icon.className = 'fa-solid fa-eye';
+      }
+    }
 </script>
 </body>
 </html>

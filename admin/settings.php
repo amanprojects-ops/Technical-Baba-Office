@@ -5,8 +5,8 @@
 $pageTitle = 'Site Settings';
 require_once '../layout/header.php';
 
-// --- Handle Save ---
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// --- Handle Save Settings ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
     $fields = [
         'site_name', 'site_tagline', 'hero_title', 'hero_subtitle',
         'hero_cta_text', 'hero_cta_url', 'about_text',
@@ -19,7 +19,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             updateSetting($f, sanitize($_POST[$f]));
         }
     }
-    flashMessage('success', '✅ Settings saved successfully!');
+    flashMessage('success', '✅ Site settings saved successfully!');
+    redirect(ADMIN_URL . '/settings.php');
+}
+
+// --- Handle Admin Password Change ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
+    $current_pass = $_POST['current_password'] ?? '';
+    $new_pass     = $_POST['new_password'] ?? '';
+    $confirm_pass = $_POST['confirm_password'] ?? '';
+    $adminId      = (int)($_SESSION['admin_id'] ?? 0);
+
+    $db = getDB();
+    $stmt = $db->prepare("SELECT * FROM admin_users WHERE id = ?");
+    $stmt->execute([$adminId]);
+    $currentAdmin = $stmt->fetch();
+
+    if (!$currentAdmin || !password_verify($current_pass, $currentAdmin['password'])) {
+        flashMessage('error', 'Current password galat hai.');
+    } elseif (strlen($new_pass) < 6) {
+        flashMessage('error', 'Naya password kam se kam 6 characters ka hona chahiye.');
+    } elseif ($new_pass !== $confirm_pass) {
+        flashMessage('error', 'Naye passwords aapas mein match nahi kar rahe hain.');
+    } else {
+        $hash = password_hash($new_pass, PASSWORD_BCRYPT);
+        $update = $db->prepare("UPDATE admin_users SET password = ?, updated_at = NOW() WHERE id = ?");
+        $update->execute([$hash, $adminId]);
+        flashMessage('success', '✅ Admin password successfully update ho gaya!');
+    }
     redirect(ADMIN_URL . '/settings.php');
 }
 
@@ -177,13 +204,51 @@ $s = getAllSettings();
       <!-- Save Button -->
       <div class="row">
         <div class="col-12">
-          <button type="submit" class="btn btn-primary btn-lg btn-block mb-4">
+          <button type="submit" name="save_settings" value="1" class="btn btn-primary btn-lg btn-block mb-4">
             <i class="fas fa-save mr-2"></i> Save All Settings
           </button>
         </div>
       </div>
 
     </form>
+
+    <!-- Admin Account Security / Password Change -->
+    <div class="card card-warning card-outline mb-4">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-user-shield mr-2"></i>Admin Account Security & Password Reset</h3>
+      </div>
+      <form method="POST" action="settings.php">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Current Password *</label>
+                <input type="password" name="current_password" class="form-control" required placeholder="Aapka purana password">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>New Password * (Min. 6 chars)</label>
+                <input type="password" name="new_password" class="form-control" required minlength="6" placeholder="Naya password">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Confirm New Password *</label>
+                <input type="password" name="confirm_password" class="form-control" required minlength="6" placeholder="Naya password dobara">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <small class="text-muted"><i class="fas fa-info-circle mr-1"></i>Password change hone ke baad agli baar naye password se login karna hoga.</small>
+          <button type="submit" name="change_password" value="1" class="btn btn-warning font-weight-bold">
+            <i class="fas fa-key mr-1"></i> Update Admin Password
+          </button>
+        </div>
+      </form>
+    </div>
+
   </div>
 </div>
 

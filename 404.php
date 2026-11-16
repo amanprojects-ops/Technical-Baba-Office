@@ -17,13 +17,13 @@ require_once 'includes/header.php';
       Shayad URL change ho gaya ya delete ho gaya.
     </p>
     <div class="d-flex flex-wrap gap-3 justify-content-center">
-      <a href="<?= SITE_URL ?>/" class="btn tb-btn-primary btn-lg">
+      <a href="<?= url() ?>" class="btn tb-btn-primary btn-lg">
         <i class="fa-solid fa-house me-2"></i> Home Par Jao
       </a>
-      <a href="<?= SITE_URL ?>/services.php" class="btn tb-btn-secondary btn-lg">
+      <a href="<?= url('services') ?>" class="btn tb-btn-secondary btn-lg">
         <i class="fa-solid fa-video me-2"></i> Videos Dekho
       </a>
-      <a href="<?= SITE_URL ?>/contact.php" class="btn tb-btn-outline-light btn-lg" style="border-color:#ccc;color:#666">
+      <a href="<?= url('contact') ?>" class="btn tb-btn-outline-light btn-lg" style="border-color:#ccc;color:#666">
         <i class="fa-solid fa-envelope me-2"></i> Contact Karo
       </a>
     </div>

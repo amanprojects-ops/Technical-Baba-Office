@@ -5,7 +5,7 @@
 // ============================================================
 function requireAdminAuth(): void {
     if (empty($_SESSION[ADMIN_SESSION_KEY]) || empty($_SESSION['admin_id'])) {
-        header('Location: ' . ADMIN_URL . '/login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+        header('Location: ' . admin_url('login') . '?redirect=' . urlencode($_SERVER['REQUEST_URI']));
         exit;
     }
 }

@@ -37,7 +37,7 @@ $activeServices = getActiveServices();
             <?= htmlspecialchars($settings['hero_subtitle'] ?? '') ?>
           </p>
           <div class="tb-hero-actions mt-4 d-flex flex-wrap gap-3">
-            <a href="services.php" class="btn tb-btn-primary btn-lg">
+            <a href="<?= url('services') ?>" class="btn tb-btn-primary btn-lg">
               <i class="fa-solid fa-play me-2"></i>
               <?= htmlspecialchars($settings['hero_cta_text'] ?? 'Videos Dekho') ?>
             </a>
@@ -135,7 +135,7 @@ $activeServices = getActiveServices();
     <div class="row g-4 mt-2">
       <?php foreach ($activeServices as $service): ?>
         <div class="col-lg-4 col-md-6">
-          <a href="services.php?cat=<?= $service['id'] ?>" class="text-decoration-none">
+          <a href="<?= url('services') ?>?cat=<?= $service['id'] ?>" class="text-decoration-none">
             <div class="tb-service-card" style="--service-color: <?= htmlspecialchars($service['color']) ?>">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <span class="tb-card-tag"><i class="fa-solid fa-play-circle me-1"></i> Content Series</span>
@@ -166,7 +166,7 @@ $activeServices = getActiveServices();
       <?php endforeach; ?>
     </div>
     <div class="text-center mt-5">
-      <a href="services.php" class="btn tb-btn-primary btn-lg">
+      <a href="<?= url('services') ?>" class="btn tb-btn-primary btn-lg">
         <i class="fa-solid fa-film me-2"></i> Saare Videos & Topics Dekho <i class="fa-solid fa-arrow-right ms-2"></i>
       </a>
     </div>
@@ -220,7 +220,7 @@ $activeServices = getActiveServices();
       <?php endforeach; ?>
     </div>
     <div class="text-center mt-5">
-      <a href="services.php" class="btn tb-btn-secondary btn-lg">
+      <a href="<?= url('services') ?>" class="btn tb-btn-secondary btn-lg">
         Aur Videos Dekho <i class="fa-solid fa-arrow-right ms-2"></i>
       </a>
     </div>
@@ -242,7 +242,7 @@ $activeServices = getActiveServices();
            target="_blank" class="btn tb-btn-youtube btn-lg">
           <i class="fa-brands fa-youtube me-2"></i> Subscribe Now — Free!
         </a>
-        <a href="contact.php" class="btn tb-btn-outline-light btn-lg">
+        <a href="<?= url('contact') ?>" class="btn tb-btn-outline-light btn-lg">
           <i class="fa-solid fa-envelope me-2"></i> Hum se Samparkit Karo
         </a>
       </div>

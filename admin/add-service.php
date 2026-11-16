@@ -7,7 +7,7 @@ require_once __DIR__ . '/layout/header.php';
 
 $db = getDB();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isPost()) {
     $title          = sanitize($_POST['title'] ?? '');
     $title_hi       = sanitize($_POST['title_hi'] ?? '');
     $description    = sanitize($_POST['description'] ?? '');
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $db->prepare("INSERT INTO services (title, title_hi, description, description_hi, icon, color, is_active, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$title, $title_hi, $description, $description_hi, $icon, $color, $is_active, $sort_order]);
         flashMessage('success', 'Service added successfully!');
-        redirect(ADMIN_URL . '/services.php');
+        redirect(admin_url('services'));
     }
 }
 
@@ -36,10 +36,10 @@ $icons = ['video','youtube','star','book','code','mobile-alt','lightbulb','lapto
       <div class="card-header">
         <h3 class="card-title"><i class="fas fa-folder-plus mr-2"></i>Add New Service</h3>
         <div class="card-tools">
-          <a href="services.php" class="btn btn-sm btn-default"><i class="fas fa-arrow-left mr-1"></i>Back to Services</a>
+          <a href="<?= admin_url('services') ?>" class="btn btn-sm btn-default"><i class="fas fa-arrow-left mr-1"></i>Back to Services</a>
         </div>
       </div>
-      <form method="POST" action="add-service.php">
+      <form method="POST" action="<?= admin_url('add-service') ?>">
         <div class="card-body">
           <div class="form-group">
             <label>Title (English) *</label>
@@ -86,7 +86,7 @@ $icons = ['video','youtube','star','book','code','mobile-alt','lightbulb','lapto
           </div>
         </div>
         <div class="card-footer d-flex justify-content-between">
-          <a href="services.php" class="btn btn-default">Cancel</a>
+          <a href="<?= admin_url('services') ?>" class="btn btn-default">Cancel</a>
           <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-1"></i>Save Service</button>
         </div>
       </form>

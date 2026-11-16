@@ -14,7 +14,7 @@ $mapsEmbed = 'https://maps.google.com/maps?q=TechnicalBabaOffice&output=embed&z=
 <section class="tb-page-hero">
   <div class="container">
     <div class="tb-breadcrumb">
-      <a href="<?= SITE_URL ?>/">Home</a>
+      <a href="<?= url() ?>">Home</a>
       <i class="fa-solid fa-chevron-right"></i>
       <span>Contact / Sampark</span>
     </div>

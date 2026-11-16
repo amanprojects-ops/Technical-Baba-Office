@@ -69,8 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['auto'])) {
       </div>
     </div>
     <div class="d-grid gap-2 mt-4">
-      <a href="<?= SITE_URL ?>/admin/login.php" class="btn btn-tb">Go to Admin Login →</a>
-      <a href="<?= SITE_URL ?>/" class="btn btn-outline-light">Visit Website 🌐</a>
+      <a href="<?= admin_url('login') ?>" class="btn btn-tb">Go to Admin Login →</a>
+      <a href="<?= url() ?>" class="btn btn-outline-light">Visit Website 🌐</a>
     </div>
   <?php elseif ($status === 'error'): ?>
     <div class="alert alert-danger">
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['auto'])) {
 
     <form method="POST" class="d-grid gap-2">
       <button type="submit" class="btn btn-tb py-3">Install / Reset Database Now 🚀</button>
-      <a href="<?= SITE_URL ?>/" class="btn btn-link text-white-50 text-decoration-none text-center">Cancel & Go to Homepage</a>
+      <a href="<?= url() ?>" class="btn btn-link text-white-50 text-decoration-none text-center">Cancel & Go to Homepage</a>
     </form>
   <?php endif; ?>
 </div>

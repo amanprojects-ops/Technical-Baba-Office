@@ -11,11 +11,11 @@ $db = getDB();
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $db->prepare("DELETE FROM videos WHERE id = ?")->execute([(int)$_GET['delete']]);
     flashMessage('success', 'Video deleted successfully.');
-    redirect(ADMIN_URL . '/videos.php');
+    redirect(admin_url('videos'));
 }
 
 // --- Handle SAVE ---
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isPost()) {
     $id  = (int)($_POST['id'] ?? 0);
     $ytId = preg_replace('/[^a-zA-Z0-9_-]/', '', $_POST['youtube_id'] ?? '');
     $data = [
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($data[3]) || strlen($data[3]) < 5) {
         flashMessage('error', 'Valid YouTube Video ID required.');
-        redirect(ADMIN_URL . '/videos.php' . ($id ? "?edit=$id" : ''));
+        redirect(admin_url('videos') . ($id ? "?edit=$id" : ''));
     }
 
     if ($id > 0) {
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $db->prepare("INSERT INTO videos (service_id,title,description,youtube_id,duration,is_featured,is_active,sort_order) VALUES (?,?,?,?,?,?,?,?)")->execute($data);
         flashMessage('success', 'Video added.');
     }
-    redirect(ADMIN_URL . '/videos.php');
+    redirect(admin_url('videos'));
 }
 
 // --- Fetch edit record ---
@@ -81,7 +81,7 @@ $services = $db->query("SELECT id, title FROM services WHERE is_active = 1 ORDER
           <button type="button" class="btn btn-tool" onclick="toggleVideoForm()"><i class="fas fa-times"></i></button>
         </div>
       </div>
-      <form method="POST" action="videos.php">
+      <form method="POST" action="<?= admin_url('videos') ?>">
         <div class="card-body">
           <?php if ($editing): ?>
             <input type="hidden" name="id" value="<?= $editing['id'] ?>">
@@ -150,7 +150,7 @@ $services = $db->query("SELECT id, title FROM services WHERE is_active = 1 ORDER
             <i class="fas fa-save mr-1"></i> <?= $editing ? 'Update Video' : 'Add Video' ?>
           </button>
           <?php if ($editing): ?>
-            <a href="videos.php" class="btn btn-default btn-block mt-1">Cancel</a>
+            <a href="<?= admin_url('videos') ?>" class="btn btn-default btn-block mt-1">Cancel</a>
           <?php endif; ?>
         </div>
       </form>
@@ -195,10 +195,10 @@ $services = $db->query("SELECT id, title FROM services WHERE is_active = 1 ORDER
                          target="_blank" class="btn btn-xs btn-default mr-1" title="View on YouTube">
                         <i class="fab fa-youtube"></i>
                       </a>
-                      <a href="videos.php?edit=<?= $v['id'] ?>" class="btn btn-xs btn-info mr-1">
+                      <a href="<?= admin_url('videos') ?>?edit=<?= $v['id'] ?>" class="btn btn-xs btn-info mr-1">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a href="videos.php?delete=<?= $v['id'] ?>"
+                      <a href="<?= admin_url('videos') ?>?delete=<?= $v['id'] ?>"
                          class="btn btn-xs btn-danger btn-delete"
                          data-item="video '<?= htmlspecialchars($v['title']) ?>'">
                         <i class="fas fa-trash"></i>
@@ -215,7 +215,7 @@ $services = $db->query("SELECT id, title FROM services WHERE is_active = 1 ORDER
               <ul class="pagination pagination-sm m-0 float-right">
                 <?php for ($i = 1; $i <= $pages; $i++): ?>
                   <li class="page-item <?= $i === $page ? 'active' : '' ?>">
-                    <a class="page-link" href="videos.php?p=<?= $i ?>"><?= $i ?></a>
+                    <a class="page-link" href="<?= admin_url('videos') ?>?p=<?= $i ?>"><?= $i ?></a>
                   </li>
                 <?php endfor; ?>
               </ul>

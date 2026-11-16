@@ -77,17 +77,17 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
         <li class="nav-item">
-          <a class="nav-link <?= $currentPage === 'index' ? 'active' : '' ?>" href="<?= SITE_URL ?>/">
+          <a class="nav-link <?= $currentPage === 'index' ? 'active' : '' ?>" href="<?= url() ?>">
             <i class="fa-solid fa-house me-1"></i> Home
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= $currentPage === 'services' ? 'active' : '' ?>" href="<?= SITE_URL ?>/services.php">
+          <a class="nav-link <?= $currentPage === 'services' ? 'active' : '' ?>" href="<?= url('services') ?>">
             <i class="fa-solid fa-video me-1"></i> Videos & Services
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= $currentPage === 'contact' ? 'active' : '' ?>" href="<?= SITE_URL ?>/contact.php">
+          <a class="nav-link <?= $currentPage === 'contact' ? 'active' : '' ?>" href="<?= url('contact') ?>">
             <i class="fa-solid fa-envelope me-1"></i> Contact
           </a>
         </li>

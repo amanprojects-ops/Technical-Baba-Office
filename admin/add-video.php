@@ -7,7 +7,7 @@ require_once __DIR__ . '/layout/header.php';
 
 $db = getDB();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isPost()) {
     $service_id  = (int)($_POST['service_id'] ?? 0) ?: null;
     $title       = sanitize($_POST['title'] ?? '');
     $description = sanitize($_POST['description'] ?? '');
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $db->prepare("INSERT INTO videos (service_id, title, description, youtube_id, duration, is_featured, is_active, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$service_id, $title, $description, $ytId, $duration, $is_featured, $is_active, $sort_order]);
         flashMessage('success', 'Video added successfully!');
-        redirect(ADMIN_URL . '/videos.php');
+        redirect(admin_url('videos'));
     }
 }
 
@@ -38,10 +38,10 @@ $services = $db->query("SELECT id, title FROM services WHERE is_active = 1 ORDER
       <div class="card-header">
         <h3 class="card-title"><i class="fas fa-video mr-2"></i>Add New Video</h3>
         <div class="card-tools">
-          <a href="videos.php" class="btn btn-sm btn-default"><i class="fas fa-arrow-left mr-1"></i>Back to Videos</a>
+          <a href="<?= admin_url('videos') ?>" class="btn btn-sm btn-default"><i class="fas fa-arrow-left mr-1"></i>Back to Videos</a>
         </div>
       </div>
-      <form method="POST" action="add-video.php">
+      <form method="POST" action="<?= admin_url('add-video') ?>">
         <div class="card-body">
           <div class="form-group">
             <label>YouTube Video ID *</label>
@@ -97,7 +97,7 @@ $services = $db->query("SELECT id, title FROM services WHERE is_active = 1 ORDER
           </div>
         </div>
         <div class="card-footer d-flex justify-content-between">
-          <a href="videos.php" class="btn btn-default">Cancel</a>
+          <a href="<?= admin_url('videos') ?>" class="btn btn-default">Cancel</a>
           <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-1"></i>Publish Video</button>
         </div>
       </form>

@@ -21,7 +21,7 @@ $activeService = $catId > 0 ? getServiceById($catId) : null;
 
 // Build pagination URL
 function pageUrl(int $p, int $cat = 0): string {
-    $url = 'services.php?p=' . $p;
+    $url = url('services') . '?p=' . $p;
     if ($cat > 0) $url .= '&cat=' . $cat;
     return $url;
 }
@@ -31,7 +31,7 @@ function pageUrl(int $p, int $cat = 0): string {
 <section class="tb-page-hero">
   <div class="container">
     <div class="tb-breadcrumb">
-      <a href="<?= SITE_URL ?>/">Home</a>
+      <a href="<?= url() ?>">Home</a>
       <i class="fa-solid fa-chevron-right"></i>
       <span>Videos & Services</span>
       <?php if ($activeService): ?>
@@ -64,11 +64,11 @@ function pageUrl(int $p, int $cat = 0): string {
     <!-- Filter Tabs -->
     <div class="mb-4">
       <div class="tb-filter-tabs">
-        <a href="services.php" class="tb-filter-tab <?= $catId === 0 ? 'active' : '' ?>">
+        <a href="<?= url('services') ?>" class="tb-filter-tab <?= $catId === 0 ? 'active' : '' ?>">
           <i class="fa-solid fa-border-all me-1"></i> Sab Kuch
         </a>
         <?php foreach ($services as $svc): ?>
-          <a href="services.php?cat=<?= $svc['id'] ?>"
+          <a href="<?= url('services') ?>?cat=<?= $svc['id'] ?>"
              class="tb-filter-tab <?= $catId === (int)$svc['id'] ? 'active' : '' ?>">
             <span style="color:<?= htmlspecialchars($svc['color']) ?>" class="me-1"><?= renderIcon($svc['icon']) ?></span>
             <?= htmlspecialchars($svc['title']) ?>
@@ -177,7 +177,7 @@ function pageUrl(int $p, int $cat = 0): string {
     <div class="row g-3">
       <?php foreach ($services as $svc): ?>
         <div class="col-lg-4 col-md-6">
-          <a href="services.php?cat=<?= $svc['id'] ?>" class="text-decoration-none">
+          <a href="<?= url('services') ?>?cat=<?= $svc['id'] ?>" class="text-decoration-none">
             <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-3 border h-100"
                  style="transition:all 0.3s;border-color:#e8edf5!important"
                  onmouseover="this.style.borderColor='<?= htmlspecialchars($svc['color']) ?>'"

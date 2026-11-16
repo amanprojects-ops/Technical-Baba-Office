@@ -11,11 +11,11 @@ $db = getDB();
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $db->prepare("DELETE FROM services WHERE id = ?")->execute([(int)$_GET['delete']]);
     flashMessage('success', 'Service deleted successfully.');
-    redirect(ADMIN_URL . '/services.php');
+    redirect(admin_url('services'));
 }
 
 // --- Handle SAVE (Add/Edit) ---
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isPost()) {
     $id    = (int)($_POST['id'] ?? 0);
     $data  = [
         sanitize($_POST['title']          ?? ''),
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $db->prepare("INSERT INTO services (title,title_hi,description,description_hi,icon,color,is_active,sort_order) VALUES (?,?,?,?,?,?,?,?)")->execute($data);
         flashMessage('success', 'Service added successfully.');
     }
-    redirect(ADMIN_URL . '/services.php');
+    redirect(admin_url('services'));
 }
 
 // --- Fetch edit record ---
@@ -64,7 +64,7 @@ $icons = ['video','youtube','star','book','code','mobile-alt','lightbulb','lapto
           <?= $editing ? 'Edit Service' : 'Add New Service' ?>
         </h3>
       </div>
-      <form method="POST" action="services.php">
+      <form method="POST" action="<?= admin_url('services') ?>">
         <div class="card-body">
           <?php if ($editing): ?>
             <input type="hidden" name="id" value="<?= $editing['id'] ?>">
@@ -125,7 +125,7 @@ $icons = ['video','youtube','star','book','code','mobile-alt','lightbulb','lapto
             <i class="fas fa-save mr-1"></i> <?= $editing ? 'Update Service' : 'Add Service' ?>
           </button>
           <?php if ($editing): ?>
-            <a href="services.php" class="btn btn-default btn-block mt-1">Cancel</a>
+            <a href="<?= admin_url('services') ?>" class="btn btn-default btn-block mt-1">Cancel</a>
           <?php endif; ?>
         </div>
       </form>
@@ -173,10 +173,10 @@ $icons = ['video','youtube','star','book','code','mobile-alt','lightbulb','lapto
                       <?php endif; ?>
                     </td>
                     <td>
-                      <a href="services.php?edit=<?= $svc['id'] ?>" class="btn btn-xs btn-info mr-1">
+                      <a href="<?= admin_url('services') ?>?edit=<?= $svc['id'] ?>" class="btn btn-xs btn-info mr-1">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a href="services.php?delete=<?= $svc['id'] ?>"
+                      <a href="<?= admin_url('services') ?>?delete=<?= $svc['id'] ?>"
                          class="btn btn-xs btn-danger btn-delete"
                          data-item="<?= htmlspecialchars($svc['title']) ?>">
                         <i class="fas fa-trash"></i>

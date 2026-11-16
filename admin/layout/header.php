@@ -19,14 +19,14 @@ $siteName     = getSetting('site_name', 'Technical Baba');
 $flash        = getFlash();
 
 $menuItems = [
-    ['url' => 'dashboard.php',  'icon' => 'tachometer-alt', 'label' => 'Dashboard'],
-    ['url' => 'services.php',   'icon' => 'list-alt',       'label' => 'Services / Categories'],
-    ['url' => 'videos.php',     'icon' => 'video',          'label' => 'Videos'],
-    ['url' => 'contacts.php',   'icon' => 'envelope',       'label' => 'Messages / Contacts'],
-    ['url' => 'settings.php',   'icon' => 'cog',            'label' => 'Site Settings'],
+    ['url' => 'dashboard', 'icon' => 'tachometer-alt', 'label' => 'Dashboard'],
+    ['url' => 'services',  'icon' => 'list-alt',       'label' => 'Services / Categories'],
+    ['url' => 'videos',    'icon' => 'video',          'label' => 'Videos'],
+    ['url' => 'contacts',  'icon' => 'envelope',       'label' => 'Messages / Contacts'],
+    ['url' => 'settings',  'icon' => 'cog',            'label' => 'Site Settings'],
 ];
 
-$currentFile = basename($_SERVER['PHP_SELF']);
+$currentFile = basename($_SERVER['PHP_SELF'], '.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +65,7 @@ $currentFile = basename($_SERVER['PHP_SELF']);
         </a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?= SITE_URL ?>/" target="_blank" class="nav-link text-muted">
+        <a href="<?= url() ?>" target="_blank" class="nav-link text-muted">
           <i class="fas fa-external-link-alt me-1"></i> View Website
         </a>
       </li>
@@ -85,9 +85,9 @@ $currentFile = basename($_SERVER['PHP_SELF']);
           </div>
         </a>
         <div class="dropdown-menu dropdown-menu-right">
-          <a href="settings.php" class="dropdown-item"><i class="fas fa-cog mr-2"></i>Settings</a>
+          <a href="<?= admin_url('settings') ?>" class="dropdown-item"><i class="fas fa-cog mr-2"></i>Settings</a>
           <div class="dropdown-divider"></div>
-          <a href="logout.php" class="dropdown-item text-danger"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
+          <a href="<?= admin_url('logout') ?>" class="dropdown-item text-danger"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
         </div>
       </li>
     </ul>
@@ -97,7 +97,7 @@ $currentFile = basename($_SERVER['PHP_SELF']);
   <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background:#0d1b2a!important">
 
     <!-- Brand -->
-    <a href="dashboard.php" class="brand-link" style="border-bottom:1px solid rgba(255,255,255,0.08)">
+    <a href="<?= admin_url('dashboard') ?>" class="brand-link" style="border-bottom:1px solid rgba(255,255,255,0.08)">
       <div style="width:36px;height:36px;background:linear-gradient(135deg,#ff6600,#ff9500);
                   border-radius:9px;display:inline-flex;align-items:center;justify-content:center;
                   font-weight:900;font-size:0.9rem;color:white;margin-right:10px;flex-shrink:0">TB</div>
@@ -118,7 +118,7 @@ $currentFile = basename($_SERVER['PHP_SELF']);
           </div>
         </div>
         <div class="info">
-          <a href="settings.php" class="d-block" style="color:rgba(255,255,255,0.9)">
+          <a href="<?= admin_url('settings') ?>" class="d-block" style="color:rgba(255,255,255,0.9)">
             <?= htmlspecialchars($adminUser['full_name'] ?? 'Admin') ?>
           </a>
           <small style="color:#ff6600;font-size:0.7rem">● Online</small>
@@ -130,7 +130,7 @@ $currentFile = basename($_SERVER['PHP_SELF']);
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
           <?php foreach ($menuItems as $item): ?>
             <li class="nav-item">
-              <a href="<?= htmlspecialchars($item['url']) ?>"
+              <a href="<?= admin_url($item['url']) ?>"
                  class="nav-link <?= $currentFile === $item['url'] ? 'active' : '' ?>">
                 <i class="nav-icon fas fa-<?= htmlspecialchars($item['icon']) ?>"></i>
                 <p><?= htmlspecialchars($item['label']) ?></p>
@@ -138,7 +138,7 @@ $currentFile = basename($_SERVER['PHP_SELF']);
             </li>
           <?php endforeach; ?>
           <li class="nav-item mt-3" style="border-top:1px solid rgba(255,255,255,0.05);padding-top:8px">
-            <a href="logout.php" class="nav-link" style="color:rgba(255,80,80,0.8)">
+            <a href="<?= admin_url('logout') ?>" class="nav-link" style="color:rgba(255,80,80,0.8)">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Logout</p>
             </a>

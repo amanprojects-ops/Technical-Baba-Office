@@ -20,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
         }
     }
     flashMessage('success', '✅ Site settings saved successfully!');
-    redirect(ADMIN_URL . '/settings.php');
+    redirect(admin_url('settings'));
 }
 
 // --- Handle Admin Password Change ---
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
+if (isPost() && isset($_POST['change_password'])) {
     $current_pass = $_POST['current_password'] ?? '';
     $new_pass     = $_POST['new_password'] ?? '';
     $confirm_pass = $_POST['confirm_password'] ?? '';
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
         $update->execute([$hash, $adminId]);
         flashMessage('success', '✅ Admin password successfully update ho gaya!');
     }
-    redirect(ADMIN_URL . '/settings.php');
+    redirect(admin_url('settings'));
 }
 
 $s = getAllSettings();
@@ -55,7 +55,7 @@ $s = getAllSettings();
 
 <div class="row">
   <div class="col-12">
-    <form method="POST" action="settings.php">
+    <form method="POST" action="<?= admin_url('settings') ?>">
       <div class="row">
 
         <!-- LEFT: General Settings -->
@@ -217,7 +217,7 @@ $s = getAllSettings();
       <div class="card-header">
         <h3 class="card-title"><i class="fas fa-user-shield mr-2"></i>Admin Account Security & Password Reset</h3>
       </div>
-      <form method="POST" action="settings.php">
+      <form method="POST" action="<?= admin_url('settings') ?>">
         <div class="card-body">
           <div class="row">
             <div class="col-md-4">

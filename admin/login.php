@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['admin_id']        = $admin['id'];
                 $_SESSION['admin_username']  = $admin['username'];
 
-                $redirectTo = $_GET['redirect'] ?? (ADMIN_URL . '/dashboard.php');
+                $redirectTo = $_GET['redirect'] ?? admin_url('dashboard');
                 redirect($redirectTo);
             } else {
                 $error = 'Galat username ya password. Dobara try karo!';
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label class="tb-form-label mb-0" for="password">
           <i class="fa-solid fa-lock me-1"></i> Password
         </label>
-        <a href="reset-password.php" style="color:var(--tb-primary);font-size:0.8rem;text-decoration:none">
+        <a href="<?= admin_url('reset-password') ?>" style="color:var(--tb-primary);font-size:0.8rem;text-decoration:none">
           <i class="fa-solid fa-key me-1"></i> Reset Password?
         </a>
       </div>
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="text-center mt-3">
-      <a href="<?= SITE_URL ?>/" style="color:rgba(255,255,255,0.3);font-size:0.8rem;text-decoration:none">
+      <a href="<?= url() ?>" style="color:rgba(255,255,255,0.3);font-size:0.8rem;text-decoration:none">
         <i class="fa-solid fa-arrow-left me-1"></i> Website par wapas jao
       </a>
     </div>

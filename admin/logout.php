@@ -4,6 +4,8 @@
 // ============================================================
 require_once __DIR__ . '/../config/db.php';
 
+require_once __DIR__ . '/../includes/functions.php';
+
 session_name(SESSION_NAME);
 session_start();
 
@@ -15,5 +17,5 @@ if (ini_get('session.use_cookies')) {
 }
 session_destroy();
 
-header('Location: ' . ADMIN_URL . '/login.php');
+header('Location: ' . admin_url('login'));
 exit;

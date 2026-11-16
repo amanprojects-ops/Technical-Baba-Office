@@ -11,18 +11,18 @@ $db = getDB();
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $db->prepare("DELETE FROM contacts WHERE id = ?")->execute([(int)$_GET['delete']]);
     flashMessage('success', 'Message deleted.');
-    redirect(ADMIN_URL . '/contacts.php');
+    redirect(admin_url('contacts'));
 }
 
 // --- Handle Mark as Read/Replied ---
 if (isset($_GET['mark_read']) && is_numeric($_GET['mark_read'])) {
     $db->prepare("UPDATE contacts SET is_read = 1 WHERE id = ?")->execute([(int)$_GET['mark_read']]);
-    redirect(ADMIN_URL . '/contacts.php?view=' . $_GET['mark_read']);
+    redirect(admin_url('contacts') . '?view=' . $_GET['mark_read']);
 }
 if (isset($_GET['mark_replied']) && is_numeric($_GET['mark_replied'])) {
     $db->prepare("UPDATE contacts SET is_read = 1, is_replied = 1 WHERE id = ?")->execute([(int)$_GET['mark_replied']]);
     flashMessage('success', 'Marked as replied.');
-    redirect(ADMIN_URL . '/contacts.php');
+    redirect(admin_url('contacts'));
 }
 
 // --- View single message ---
@@ -69,9 +69,9 @@ $unread = (int)$db->query("SELECT COUNT(*) FROM contacts WHERE is_read = 0")->fe
           <?php endif; ?>
         </h3>
         <div class="d-flex gap-2 flex-wrap">
-          <a href="contacts.php?filter=all"    class="btn btn-xs <?= $filter === 'all' ? 'btn-primary' : 'btn-default' ?>">All</a>
-          <a href="contacts.php?filter=unread" class="btn btn-xs <?= $filter === 'unread' ? 'btn-primary' : 'btn-default' ?>">Unread (<?= $unread ?>)</a>
-          <a href="contacts.php?filter=replied"class="btn btn-xs <?= $filter === 'replied'? 'btn-primary' : 'btn-default' ?>">Replied</a>
+          <a href="<?= admin_url('contacts') ?>?filter=all"    class="btn btn-xs <?= $filter === 'all' ? 'btn-primary' : 'btn-default' ?>">All</a>
+          <a href="<?= admin_url('contacts') ?>?filter=unread" class="btn btn-xs <?= $filter === 'unread' ? 'btn-primary' : 'btn-default' ?>">Unread (<?= $unread ?>)</a>
+          <a href="<?= admin_url('contacts') ?>?filter=replied"class="btn btn-xs <?= $filter === 'replied'? 'btn-primary' : 'btn-default' ?>">Replied</a>
         </div>
       </div>
       <div class="card-body p-0">
@@ -112,14 +112,14 @@ $unread = (int)$db->query("SELECT COUNT(*) FROM contacts WHERE is_read = 0")->fe
                       <?php endif; ?>
                     </td>
                     <td class="text-nowrap">
-                      <a href="contacts.php?view=<?= $msg['id'] ?>" class="btn btn-xs btn-info mr-1" title="View">
+                      <a href="<?= admin_url('contacts') ?>?view=<?= $msg['id'] ?>" class="btn btn-xs btn-info mr-1" title="View">
                         <i class="fas fa-eye"></i>
                       </a>
                       <a href="mailto:<?= htmlspecialchars($msg['email']) ?>?subject=Re: <?= urlencode($msg['subject'] ?? '') ?>"
                          class="btn btn-xs btn-success mr-1" title="Reply via Email">
                         <i class="fas fa-reply"></i>
                       </a>
-                      <a href="contacts.php?delete=<?= $msg['id'] ?>"
+                      <a href="<?= admin_url('contacts') ?>?delete=<?= $msg['id'] ?>"
                          class="btn btn-xs btn-danger btn-delete"
                          data-item="message from <?= htmlspecialchars($msg['name']) ?>">
                         <i class="fas fa-trash"></i>
@@ -135,7 +135,7 @@ $unread = (int)$db->query("SELECT COUNT(*) FROM contacts WHERE is_read = 0")->fe
               <ul class="pagination pagination-sm m-0 float-right">
                 <?php for ($i = 1; $i <= $pages; $i++): ?>
                   <li class="page-item <?= $i === $page ? 'active' : '' ?>">
-                    <a class="page-link" href="contacts.php?p=<?= $i ?>&filter=<?= urlencode($filter) ?>"><?= $i ?></a>
+                    <a class="page-link" href="<?= admin_url('contacts') ?>?p=<?= $i ?>&filter=<?= urlencode($filter) ?>"><?= $i ?></a>
                   </li>
                 <?php endfor; ?>
               </ul>
@@ -156,7 +156,7 @@ $unread = (int)$db->query("SELECT COUNT(*) FROM contacts WHERE is_read = 0")->fe
             Message from <?= htmlspecialchars($viewing['name']) ?>
           </h3>
           <div class="card-tools">
-            <a href="contacts.php" class="btn btn-tool"><i class="fas fa-times"></i></a>
+            <a href="<?= admin_url('contacts') ?>" class="btn btn-tool"><i class="fas fa-times"></i></a>
           </div>
         </div>
         <div class="card-body">
@@ -206,11 +206,11 @@ $unread = (int)$db->query("SELECT COUNT(*) FROM contacts WHERE is_read = 0")->fe
             <i class="fas fa-reply mr-1"></i> Reply via Email
           </a>
           <?php if (!$viewing['is_replied']): ?>
-            <a href="contacts.php?mark_replied=<?= $viewing['id'] ?>" class="btn btn-info mr-2">
+            <a href="<?= admin_url('contacts') ?>?mark_replied=<?= $viewing['id'] ?>" class="btn btn-info mr-2">
               <i class="fas fa-check mr-1"></i> Mark as Replied
             </a>
           <?php endif; ?>
-          <a href="contacts.php?delete=<?= $viewing['id'] ?>"
+          <a href="<?= admin_url('contacts') ?>?delete=<?= $viewing['id'] ?>"
              class="btn btn-danger btn-delete"
              data-item="this message">
             <i class="fas fa-trash mr-1"></i> Delete

@@ -88,25 +88,25 @@ $recentVideos = $db->query(
       <div class="card-body">
         <div class="row g-3">
           <div class="col-lg-3 col-md-6 col-6">
-            <a href="add-video.php" class="tb-quick-action">
+            <a href="<?= admin_url('add-video') ?>" class="tb-quick-action">
               <i class="fas fa-plus-circle" style="color:#ff6600"></i>
               <span>Add Video</span>
             </a>
           </div>
           <div class="col-lg-3 col-md-6 col-6">
-            <a href="add-service.php" class="tb-quick-action">
+            <a href="<?= admin_url('add-service') ?>" class="tb-quick-action">
               <i class="fas fa-folder-plus" style="color:#1a73e8"></i>
               <span>Add Service</span>
             </a>
           </div>
           <div class="col-lg-3 col-md-6 col-6">
-            <a href="contacts.php" class="tb-quick-action">
+            <a href="<?= admin_url('contacts') ?>" class="tb-quick-action">
               <i class="fas fa-envelope-open-text" style="color:#28a745"></i>
               <span>View Messages<?= $unreadMessages > 0 ? ' ('.$unreadMessages.')' : '' ?></span>
             </a>
           </div>
           <div class="col-lg-3 col-md-6 col-6">
-            <a href="settings.php" class="tb-quick-action">
+            <a href="<?= admin_url('settings') ?>" class="tb-quick-action">
               <i class="fas fa-cog" style="color:#6f42c1"></i>
               <span>Site Settings</span>
             </a>
@@ -126,7 +126,7 @@ $recentVideos = $db->query(
       <div class="card-header">
         <h3 class="card-title"><i class="fas fa-envelope mr-2" style="color:#28a745"></i>Recent Messages</h3>
         <div class="card-tools">
-          <a href="contacts.php" class="btn btn-sm btn-default">View All</a>
+          <a href="<?= admin_url('contacts') ?>" class="btn btn-sm btn-default">View All</a>
         </div>
       </div>
       <div class="card-body p-0">
@@ -172,7 +172,7 @@ $recentVideos = $db->query(
       <div class="card-header">
         <h3 class="card-title"><i class="fas fa-video mr-2" style="color:#ff6600"></i>Recent Videos</h3>
         <div class="card-tools">
-          <a href="videos.php" class="btn btn-sm btn-default">View All</a>
+          <a href="<?= admin_url('videos') ?>" class="btn btn-sm btn-default">View All</a>
         </div>
       </div>
       <div class="card-body p-0">

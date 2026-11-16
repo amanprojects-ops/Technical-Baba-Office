@@ -79,12 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <i class="fa-solid fa-circle-check me-2"></i><?= htmlspecialchars($success) ?>
     </div>
     <div class="mt-3">
-      <a href="login.php" class="btn tb-btn-primary w-100 py-3">
+      <a href="<?= admin_url('login') ?>" class="btn tb-btn-primary w-100 py-3">
         <i class="fa-solid fa-right-to-bracket me-2"></i> Login Page Par Jao
       </a>
     </div>
   <?php else: ?>
-    <form method="POST" action="reset-password.php" class="tb-login-form" novalidate>
+    <form method="POST" action="<?= admin_url('reset-password') ?>" class="tb-login-form" novalidate>
       <input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">
 
       <div class="mb-3">
@@ -128,10 +128,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </button>
 
       <div class="text-center mt-4 d-flex justify-content-between">
-        <a href="login.php" style="color:var(--tb-primary);font-size:0.85rem;text-decoration:none">
+        <a href="<?= admin_url('login') ?>" style="color:var(--tb-primary);font-size:0.85rem;text-decoration:none">
           <i class="fa-solid fa-arrow-left me-1"></i> Login Par Jao
         </a>
-        <a href="<?= SITE_URL ?>/" style="color:rgba(255,255,255,0.4);font-size:0.85rem;text-decoration:none">
+        <a href="<?= url() ?>" style="color:rgba(255,255,255,0.4);font-size:0.85rem;text-decoration:none">
           Website Dekho
         </a>
       </div>

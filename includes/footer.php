@@ -46,9 +46,9 @@
       <div class="col-lg-2 col-md-6">
         <h5 class="tb-footer-heading">Quick Links</h5>
         <ul class="tb-footer-links">
-          <li><a href="<?= SITE_URL ?>/"><i class="fa-solid fa-chevron-right me-1"></i>Home</a></li>
-          <li><a href="<?= SITE_URL ?>/services.php"><i class="fa-solid fa-chevron-right me-1"></i>Videos</a></li>
-          <li><a href="<?= SITE_URL ?>/contact.php"><i class="fa-solid fa-chevron-right me-1"></i>Contact</a></li>
+          <li><a href="<?= url() ?>"><i class="fa-solid fa-chevron-right me-1"></i>Home</a></li>
+          <li><a href="<?= url('services') ?>"><i class="fa-solid fa-chevron-right me-1"></i>Videos</a></li>
+          <li><a href="<?= url('contact') ?>"><i class="fa-solid fa-chevron-right me-1"></i>Contact</a></li>
         </ul>
       </div>
 
@@ -61,7 +61,7 @@
         <ul class="tb-footer-links">
           <?php foreach (array_slice($footerServices, 0, 5) as $svc): ?>
             <li>
-              <a href="<?= SITE_URL ?>/services.php?cat=<?= $svc['id'] ?>">
+              <a href="<?= url('services') ?>?cat=<?= $svc['id'] ?>">
                 <?= renderIcon($svc['icon'], 'me-1') ?>
                 <?= htmlspecialchars($svc['title']) ?>
               </a>

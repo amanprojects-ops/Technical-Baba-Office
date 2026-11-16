@@ -9,10 +9,43 @@ define('DB_PASS', '');           // Change this for production
 define('DB_NAME', 'technicalbaba_db');
 define('DB_CHARSET', 'utf8mb4');
 
-// Site Base URL (no trailing slash)
-define('SITE_URL', 'http://localhost/TechnicalBabaOffice');
-define('ADMIN_URL', SITE_URL . '/admin');
-define('ASSETS_URL', SITE_URL . '/assets');
+// ============================================================
+// Dynamic Base URL Auto-Detection (Zero Manual Configuration)
+// Works automatically on localhost, subdirectories, or live domains
+// ============================================================
+if (!defined('SITE_URL')) {
+    $isHttps = (
+        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+        (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+        (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] === 'on') ||
+        (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
+    );
+    $protocol = $isHttps ? 'https://' : 'http://';
+    $host     = $_SERVER['HTTP_HOST'] ?? 'localhost';
+
+    // Calculate directory relative to Document Root
+    $projectDir = str_replace('\\', '/', realpath(__DIR__ . '/..'));
+    $docRoot    = !empty($_SERVER['DOCUMENT_ROOT']) ? str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT'])) : '';
+
+    $basePath = '';
+    if (!empty($docRoot) && strpos($projectDir, $docRoot) === 0) {
+        $basePath = substr($projectDir, strlen($docRoot));
+    } elseif (!empty($_SERVER['SCRIPT_NAME'])) {
+        $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+        if (strpos($scriptDir, '/admin') !== false) {
+            $basePath = substr($scriptDir, 0, strpos($scriptDir, '/admin'));
+        } else {
+            $basePath = $scriptDir;
+        }
+    }
+    $basePath = '/' . trim($basePath, '/');
+    if ($basePath === '/') $basePath = '';
+
+    define('BASE_PATH', $basePath);
+    define('SITE_URL', rtrim($protocol . $host . $basePath, '/'));
+    define('ADMIN_URL', SITE_URL . '/admin');
+    define('ASSETS_URL', SITE_URL . '/assets');
+}
 
 // Session config
 define('SESSION_NAME', 'techbaba_admin');

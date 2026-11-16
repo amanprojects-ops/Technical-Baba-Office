@@ -135,13 +135,43 @@ function sanitize(string $input): string {
     return htmlspecialchars(strip_tags(trim($input)), ENT_QUOTES, 'UTF-8');
 }
 
+// ============================================================
+// DYNAMIC URL & ROUTING HELPERS
+// ============================================================
+
+/**
+ * Generate fully dynamic site URL (clean URLs or standard)
+ */
+function url(string $path = ''): string {
+    $clean = ltrim($path, '/');
+    return empty($clean) ? SITE_URL . '/' : SITE_URL . '/' . $clean;
+}
+
+/**
+ * Generate fully dynamic admin URL
+ */
+function admin_url(string $path = ''): string {
+    $clean = ltrim($path, '/');
+    return empty($clean) ? ADMIN_URL . '/' : ADMIN_URL . '/' . $clean;
+}
+
+/**
+ * Generate fully dynamic asset URL
+ */
+function asset_url(string $path = ''): string {
+    return ASSETS_URL . '/' . ltrim($path, '/');
+}
+
 function redirect(string $url): void {
+    if (!preg_match('/^https?:\/\//i', $url)) {
+        $url = url($url);
+    }
     header("Location: $url");
     exit;
 }
 
 function isPost(): bool {
-    return $_SERVER['REQUEST_METHOD'] === 'POST';
+    return ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST';
 }
 
 function getYoutubeThumbnail(string $youtubeId): string {

@@ -1,0 +1,23 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# PHP
+*.log
+*.cache
+
+# Config (sensitive)
+config/db.php.local
+
+# Node (if any)
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Uploads (keep folder, ignore files)
+assets/uploads/*
+!assets/uploads/.gitkeep
